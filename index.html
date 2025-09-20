@@ -3,217 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore - Интернет-магазин</title>
-    
-    <!-- PyScript -->
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.09.1/core.css" />
-    <script type="module" src="https://pyscript.net/releases/2024.09.1/core.js"></script>
-    
-    <!-- Иконки -->
+    <title>Культовые бренды: история и стиль</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Навигация */
+        nav {
+            background-color: #222;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .nav-button:hover {
+            background-color: #444;
+        }
+        
+        .nav-button.active {
+            background-color: #393939;
+            font-weight: bold;
+        }
+        
+        .nav-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #ff3d3d;
+        }
+        
+        /* Основной контент */
+        .brand-section {
+            display: none;
+            padding: 3rem 0;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .brand-section.active {
+            display: block;
+        }
+        
+        .brand-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .brand-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #222;
+        }
+        
+        .brand-subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .brand-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .brand-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        
+        .brand-image:hover {
+            transform: translateY(-5px);
+        }
+        
+        .brand-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .brand-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .brand-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #222;
+            border-left: 4px solid #ff3d3d;
+            padding-left: 15px;
+        }
+        
+        .brand-info p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .specs {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 2rem;
+        }
+        
+        .specs h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+        
+        .specs ul {
+            list-style-type: none;
+        }
+        
+        .specs li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+        }
+        
+        .specs li:last-child {
+            border-bottom: none;
+        }
+        
+        .specs .label {
+            font-weight: bold;
+            min-width: 150px;
+            color: #555;
+        }
+        
+        /* Подвал */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-icons {
+            margin: 1rem 0;
+        }
+        
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: #ff3d3d;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .brand-content {
+                flex-direction: column;
+            }
+            
+            .nav-button {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .brand-title {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Дополнительные стили для брендов */
+        .lonsdale-color {
+            color: #ffcc00;
+        }
+        
+        .fredperry-color {
+            color: #000000;
+        }
+        
+        .alphaind-color {
+            color: #0066cc;
+        }
+        
+        .drmartens-color {
+            color: #ff0000;
+        }
+    </style>
 </head>
 <body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container">
+            <div class="logo">CULT BRANDS</div>
+            <p class="tagline">История, философия и культурное значение культовых брендов, изменивших моду и стиль</p>
+        </div>
+    </header>
+    
     <!-- Навигация -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <i class="fas fa-laptop"></i>
-                TechStore
-            </div>
-            
-            <div class="nav-search">
-                <input type="text" id="searchInput" placeholder="Поиск товаров...">
-                <button onclick="searchProducts()">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            
-            <div class="nav-links">
-                <a href="#" class="nav-link active" onclick="showTab('home')">
-                    <i class="fas fa-home"></i>
-                    Главная
-                </a>
-                <a href="#" class="nav-link" onclick="showTab('search')">
-                    <i class="fas fa-search"></i>
-                    Поиск
-                </a>
-                <a href="#" class="nav-link" onclick="showTab('cart')">
-                    <i class="fas fa-shopping-cart"></i>
-                    Корзина
-                    <span id="cartCount" class="cart-count">0</span>
-                </a>
-                <a href="#" class="nav-link" onclick="showTab('profile')">
-                    <i class="fas fa-user"></i>
-                    Профиль
-                </a>
-            </div>
+    <nav>
+        <div class="container nav-container">
+            <button class="nav-button active" data-target="lonsdale">Lonsdale</button>
+            <button class="nav-button" data-target="fredperry">Fred Perry</button>
+            <button class="nav-button" data-target="alphaind">Alpha Industries</button>
+            <button class="nav-button" data-target="drmartens">Dr. Martens</button>
         </div>
     </nav>
-
+    
     <!-- Основной контент -->
-    <main class="main-content">
-        <!-- Главная страница -->
-        <div id="home" class="tab-content active">
-            <div class="hero-section">
-                <h1>Добро пожаловать в TechStore!</h1>
-                <p>Лучшие технологии по лучшим ценам</p>
+    <main class="container">
+        <!-- Lonsdale -->
+        <section id="lonsdale" class="brand-section active">
+            <div class="brand-header">
+                <h2 class="brand-title"><span class="lonsdale-color">Lonsdale</span></h2>
+                <p class="brand-subtitle">Британский бренд спортивной одежды и экипировки для бокса</p>
             </div>
             
-            <div class="products-grid" id="productsContainer">
-                <!-- Товары будут загружены через JavaScript -->
-            </div>
-        </div>
-
-        <!-- Поиск -->
-        <div id="search" class="tab-content">
-            <div class="search-header">
-                <h2>Поиск товаров</h2>
-                <div class="search-filters">
-                    <select id="categoryFilter">
-                        <option value="">Все категории</option>
-                        <option value="jackets">🧥 Куртки</option>
-                        <option value="tshirts">👕 Футболки</option>
-                        <option value="pants">👖 Штаны</option>
-                        <option value="hoodies">🧢 Толстовки</option>
-                        <option value="shorts">🩳 Шорты</option>
-                        <option value="sweaters">🧶 Кофты</option>
-                        <option value="accessories">🎽 Аксессуары</option>
-                    </select>
-                    <select id="priceFilter">
-                        <option value="">Любая цена</option>
-                        <option value="0-10000">До 10,000₽</option>
-                        <option value="10000-30000">10,000-30,000₽</option>
-                        <option value="30000-50000">30,000-50,000₽</option>
-                        <option value="50000+">От 50,000₽</option>
-                    </select>
-                </div>
-            </div>
-            <div class="search-results" id="searchResults">
-                <!-- Результаты поиска -->
-            </div>
-        </div>
-
-        <!-- Корзина -->
-        <div id="cart" class="tab-content">
-            <div class="cart-header">
-                <h2>Ваша корзина</h2>
-                <div class="cart-actions" id="cartActions" style="display: none;">
-                    <button class="select-all-btn" onclick="store.toggleSelectAll()">
-                        <i class="fas fa-check-square"></i>
-                        Выбрать все
-                    </button>
-                    <button class="delete-selected-btn" onclick="store.deleteSelectedItems()">
-                        <i class="fas fa-trash"></i>
-                        Удалить выбранные
-                    </button>
-                    <button class="order-selected-btn" onclick="store.orderSelectedItems()">
-                        <i class="fas fa-shopping-bag"></i>
-                        Заказать выбранные
-                    </button>
-                </div>
-            </div>
-            
-            <div class="cart-items" id="cartItems">
-                <div class="empty-cart" id="emptyCart">
-                    <i class="fas fa-shopping-cart"></i>
-                    <p>Ваша корзина пуста</p>
-                </div>
-            </div>
-            
-            <div class="cart-summary" id="cartSummary" style="display: none;">
-                <div class="summary-info">
-                    <div class="total-items">
-                        Товаров: <span id="totalItems">0</span>
-                    </div>
-                    <div class="total-price">
-                        Итого: <span id="totalPrice">0</span>₽
-                    </div>
-                    <div class="selected-info">
-                        Выбрано: <span id="selectedCount">0</span> товаров
-                    </div>
-                </div>
-                <button class="checkout-btn" onclick="store.checkout()">
-                    Оформить весь заказ
-                </button>
-            </div>
-        </div>
-
-        <!-- Профиль -->
-        <div id="profile" class="tab-content">
-            <div class="profile-container">
-                <div class="profile-header">
-                    <i class="fas fa-user-circle"></i>
-                    <h2>Ваш профиль</h2>
+            <div class="brand-content">
+                <div class="brand-image">
+                    <img src="https://images.unsplash.com/photo-1616356607338-fd87169ec3ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Lonsdale">
                 </div>
                 
-                <div class="profile-info">
-                    <div class="info-item">
-                        <label>Имя:</label>
-                        <span id="userName">Гость</span>
+                <div class="brand-info">
+                    <h3>История бренда</h3>
+                    <p>Lonsdale была основана в 1960 году в Лондоне. Бренд назван в честь знаменитого боксера Ленсдауна, пятого графа Лонсдейла, который был президентом Национального спортивного клуба Великобритании.</p>
+                    <p>Изначально компания специализировалась на производстве высококачественной боксерской экипировки: перчаток, шлемов, груш. Со временем ассортимент расширился до спортивной одежды и аксессуаров.</p>
+                    
+                    <div class="specs">
+                        <h4>Ключевая информация</h4>
+                        <ul>
+                            <li><span class="label">Основатель:</span> Бернард Харт</li>
+                            <li><span class="label">Год основания:</span> 1960</li>
+                            <li><span class="label">Страна:</span> Великобритания</li>
+                            <li><span class="label">Специализация:</span> Спортивная одежда, боксерская экипировка</li>
+                            <li><span class="label">Культурное значение:</span> Символ боксерской культуры, популярен среди футбольных фанатов и в субкультурах</li>
+                        </ul>
                     </div>
-                    <div class="info-item">
-                        <label>Email:</label>
-                        <span id="userEmail">Не указан</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Телефон:</label>
-                        <span id="userPhone">Не указан</span>
-                    </div>
-                </div>
-
-                <div class="profile-actions">
-                    <button onclick="editProfile()">
-                        <i class="fas fa-edit"></i>
-                        Редактировать профиль
-                    </button>
-                    <button onclick="viewOrderHistory()">
-                        <i class="fas fa-history"></i>
-                        История заказов
-                    </button>
-                </div>
-
-                <div class="order-history" id="orderHistory" style="display: none;">
-                    <h3>История заказов</h3>
-                    <div id="ordersList"></div>
                 </div>
             </div>
-        </div>
+        </section>
+        
+        <!-- Fred Perry -->
+        <section id="fredperry" class="brand-section">
+            <div class="brand-header">
+                <h2 class="brand-title"><span class="fredperry-color">Fred Perry</span></h2>
+                <p class="brand-subtitle">Культовый британский бренд, известный своими поло и связью с модными субкультурами</p>
+            </div>
+            
+            <div class="brand-content">
+                <div class="brand-image">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fred Perry">
+                </div>
+                
+                <div class="brand-info">
+                    <h3>История бренда</h3>
+                    <p>Бренд Fred Perry был основан в 1952 году теннисистом Фредом Перри, который выиграл множество турниров Большого шлема. Перри хотел создать функциональную и стильную спортивную одежду.</p>
+                    <p>Фирменная модель — хлопковая тенниска с лавровым венком на груди — стала символом различных субкультур: от модов 1960-х до скинхедов и представителей инди-сцены.</p>
+                    
+                    <div class="specs">
+                        <h4>Ключевая информация</h4>
+                        <ul>
+                            <li><span class="label">Основатель:</span> Фред Перри</li>
+                            <li><span class="label">Год основания:</span> 1952</li>
+                            <li><span class="label">Страна:</span> Великобритания</li>
+                            <li><span class="label">Специализация:</span> Поло, повседневная одежда, обувь</li>
+                            <li><span class="label">Культурное значение:</span> Символ британских субкультур, от модов до скинхедов и инди-сцены</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Alpha Industries -->
+        <section id="alphaind" class="brand-section">
+            <div class="brand-header">
+                <h2 class="brand-title"><span class="alphaind-color">Alpha Industries</span></h2>
+                <p class="brand-subtitle">Американский производитель военной и уличной одежды, известный своими легендарными куртками</p>
+            </div>
+            
+            <div class="brand-content">
+                <div class="brand-image">
+                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Alpha Industries">
+                </div>
+                
+                <div class="brand-info">
+                    <h3>История бренда</h3>
+                    <p>Alpha Industries была основана в 1959 году в Теннесси, США. Компания начала с производства военной формы для армии США, включая знаменитые летные куртки MA-1.</p>
+                    <p>Со временем бренд стал популярен среди гражданских, особенно в хип-хоп культуре и среди скинхедов. Куртки Alpha Industries стали символом уличного стиля и бунтарского духа.</p>
+                    
+                    <div class="specs">
+                        <h4>Ключевая информация</h4>
+                        <ul>
+                            <li><span class="label">Основатель:</span> Сэмюэл Герман</li>
+                            <li><span class="label">Год основания:</span> 1959</li>
+                            <li><span class="label">Страна:</span> США</li>
+                            <li><span class="label">Специализация:</span> Военная и уличная одежда, куртки</li>
+                            <li><span class="label">Культурное значение:</span> Символ уличного стиля, популярен в хип-хоп культуре и среди скинхедов</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Dr. Martens -->
+        <section id="drmartens" class="brand-section">
+            <div class="brand-header">
+                <h2 class="brand-title"><span class="drmartens-color">Dr. Martens</span></h2>
+                <p class="brand-subtitle">Легендарная обувь, ставшая символом самовыражения и нонконформизма</p>
+            </div>
+            
+            <div class="brand-content">
+                <div class="brand-image">
+                    <img src="https://images.unsplash.com/photo-1542280756-74b2f55e73ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dr. Martens">
+                </div>
+                
+                <div class="brand-info">
+                    <h3>История бренда</h3>
+                    <p>Dr. Martens была основана в 1947 году в Германии доктором Клаусом Мэртенсом, который создал удобную обувь на воздушной подошве после травмы ноги. В 1960-х бренд стал популярен в Великобритании.</p>
+                    <p>Кожаные ботинки с характерной подошвой и желтой строчкой стали символом различных субкультур: панков, готов, скинхедов и других, олицетворяя бунтарский дух и индивидуальность.</p>
+                    
+                    <div class="specs">
+                        <h4>Ключевая информация</h4>
+                        <ul>
+                            <li><span class="label">Основатель:</span> Клаус Мэртенс</li>
+                            <li><span class="label">Год основания:</span> 1947</li>
+                            <li><span class="label">Страна:</span> Германия/Великобритания</li>
+                            <li><span class="label">Специализация:</span> Обувь, одежда, аксессуары</li>
+                            <li><span class="label">Культурное значение:</span> Символ нонконформизма, популярен среди панков, готов и других субкультур</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <!-- Модальное окно для профиля -->
-    <div id="profileModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Редактирование профиля</h2>
-            <form id="profileForm">
-                <div class="form-group">
-                    <label>Имя:</label>
-                    <input type="text" id="editName" required>
-                </div>
-                <div class="form-group">
-                    <label>Email:</label>
-                    <input type="email" id="editEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>Телефон:</label>
-                    <input type="tel" id="editPhone">
-                </div>
-                <button type="submit">Сохранить</button>
-            </form>
+    
+    <!-- Подвал -->
+    <footer>
+        <div class="container footer-content">
+            <p>Узнайте больше о культовых брендах, изменивших моду</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+            <p>&copy; 2023 Cult Brands. Все права защищены.</p>
         </div>
-    </div>
-
-    <script src="script.js"></script>
+    </footer>
+    
+    <script>
+        // JavaScript для навигации
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const brandSections = document.querySelectorAll('.brand-section');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    
+                    // Убираем активный класс у всех кнопок и секций
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    brandSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Добавляем активный класс текущей кнопке и целевой секции
+                    this.classList.add('active');
+                    document.getElementById(target).classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Магазин одежды Lonsdale - качественная спортивная одежда по лучшим ценам">
-    <meta name="keywords" content="Lonsdale, одежда, спортивная одежда, куртки, футболки">
-    <title>Lonsdale Store - Официальный магазин одежды</title>
-    <!-- остальные теги -->
-</head>
