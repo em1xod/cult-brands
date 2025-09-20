@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Интернет-магазин</title>
+    
+    <!-- PyScript -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.09.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2024.09.1/core.js"></script>
+    
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-laptop"></i>
+                TechStore
+            </div>
+            
+            <div class="nav-search">
+                <input type="text" id="searchInput" placeholder="Поиск товаров...">
+                <button onclick="searchProducts()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#" class="nav-link active" onclick="showTab('home')">
+                    <i class="fas fa-home"></i>
+                    Главная
+                </a>
+                <a href="#" class="nav-link" onclick="showTab('search')">
+                    <i class="fas fa-search"></i>
+                    Поиск
+                </a>
+                <a href="#" class="nav-link" onclick="showTab('cart')">
+                    <i class="fas fa-shopping-cart"></i>
+                    Корзина
+                    <span id="cartCount" class="cart-count">0</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showTab('profile')">
+                    <i class="fas fa-user"></i>
+                    Профиль
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <!-- Главная страница -->
+        <div id="home" class="tab-content active">
+            <div class="hero-section">
+                <h1>Добро пожаловать в TechStore!</h1>
+                <p>Лучшие технологии по лучшим ценам</p>
+            </div>
+            
+            <div class="products-grid" id="productsContainer">
+                <!-- Товары будут загружены через JavaScript -->
+            </div>
+        </div>
+
+        <!-- Поиск -->
+        <div id="search" class="tab-content">
+            <div class="search-header">
+                <h2>Поиск товаров</h2>
+                <div class="search-filters">
+                    <select id="categoryFilter">
+                        <option value="">Все категории</option>
+                        <option value="jackets">🧥 Куртки</option>
+                        <option value="tshirts">👕 Футболки</option>
+                        <option value="pants">👖 Штаны</option>
+                        <option value="hoodies">🧢 Толстовки</option>
+                        <option value="shorts">🩳 Шорты</option>
+                        <option value="sweaters">🧶 Кофты</option>
+                        <option value="accessories">🎽 Аксессуары</option>
+                    </select>
+                    <select id="priceFilter">
+                        <option value="">Любая цена</option>
+                        <option value="0-10000">До 10,000₽</option>
+                        <option value="10000-30000">10,000-30,000₽</option>
+                        <option value="30000-50000">30,000-50,000₽</option>
+                        <option value="50000+">От 50,000₽</option>
+                    </select>
+                </div>
+            </div>
+            <div class="search-results" id="searchResults">
+                <!-- Результаты поиска -->
+            </div>
+        </div>
+
+        <!-- Корзина -->
+        <div id="cart" class="tab-content">
+            <div class="cart-header">
+                <h2>Ваша корзина</h2>
+                <div class="cart-actions" id="cartActions" style="display: none;">
+                    <button class="select-all-btn" onclick="store.toggleSelectAll()">
+                        <i class="fas fa-check-square"></i>
+                        Выбрать все
+                    </button>
+                    <button class="delete-selected-btn" onclick="store.deleteSelectedItems()">
+                        <i class="fas fa-trash"></i>
+                        Удалить выбранные
+                    </button>
+                    <button class="order-selected-btn" onclick="store.orderSelectedItems()">
+                        <i class="fas fa-shopping-bag"></i>
+                        Заказать выбранные
+                    </button>
+                </div>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart" id="emptyCart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Ваша корзина пуста</p>
+                </div>
+            </div>
+            
+            <div class="cart-summary" id="cartSummary" style="display: none;">
+                <div class="summary-info">
+                    <div class="total-items">
+                        Товаров: <span id="totalItems">0</span>
+                    </div>
+                    <div class="total-price">
+                        Итого: <span id="totalPrice">0</span>₽
+                    </div>
+                    <div class="selected-info">
+                        Выбрано: <span id="selectedCount">0</span> товаров
+                    </div>
+                </div>
+                <button class="checkout-btn" onclick="store.checkout()">
+                    Оформить весь заказ
+                </button>
+            </div>
+        </div>
+
+        <!-- Профиль -->
+        <div id="profile" class="tab-content">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <i class="fas fa-user-circle"></i>
+                    <h2>Ваш профиль</h2>
+                </div>
+                
+                <div class="profile-info">
+                    <div class="info-item">
+                        <label>Имя:</label>
+                        <span id="userName">Гость</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Email:</label>
+                        <span id="userEmail">Не указан</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Телефон:</label>
+                        <span id="userPhone">Не указан</span>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button onclick="editProfile()">
+                        <i class="fas fa-edit"></i>
+                        Редактировать профиль
+                    </button>
+                    <button onclick="viewOrderHistory()">
+                        <i class="fas fa-history"></i>
+                        История заказов
+                    </button>
+                </div>
+
+                <div class="order-history" id="orderHistory" style="display: none;">
+                    <h3>История заказов</h3>
+                    <div id="ordersList"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно для профиля -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Редактирование профиля</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label>Имя:</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="editEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон:</label>
+                    <input type="tel" id="editPhone">
+                </div>
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Магазин одежды Lonsdale - качественная спортивная одежда по лучшим ценам">
+    <meta name="keywords" content="Lonsdale, одежда, спортивная одежда, куртки, футболки">
+    <title>Lonsdale Store - Официальный магазин одежды</title>
+    <!-- остальные теги -->
+</head>
