@@ -143,6 +143,11 @@
             overflow: hidden;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             transition: transform 0.3s;
+            background: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .brand-image:hover {
@@ -150,9 +155,10 @@
         }
         
         .brand-image img {
-            width: 100%;
+            max-width: 100%;
             height: auto;
             display: block;
+            border-radius: 4px;
         }
         
         .brand-info {
@@ -251,6 +257,10 @@
             .brand-title {
                 font-size: 2rem;
             }
+            
+            .specs .label {
+                min-width: 120px;
+            }
         }
         
         /* Дополнительные стили для брендов */
@@ -268,6 +278,14 @@
         
         .drmartens-color {
             color: #ff0000;
+        }
+        
+        .image-caption {
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -301,7 +319,7 @@
             
             <div class="brand-content">
                 <div class="brand-image">
-                    <img src="https://images.unsplash.com/photo-1616356607338-fd87169ec3ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Lonsdale">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Lonsdale_Logo.svg/800px-Lonsdale_Logo.svg.png" alt="Lonsdale Logo" style="max-width: 80%;">
                 </div>
                 
                 <div class="brand-info">
@@ -332,7 +350,8 @@
             
             <div class="brand-content">
                 <div class="brand-image">
-                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Fred Perry">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Fred_Perry_logo.svg/800px-Fred_Perry_logo.svg.png" alt="Fred Perry Logo" style="max-width: 80%;">
+                    <div class="image-caption">Легендарный лавровый венок - символ бренда</div>
                 </div>
                 
                 <div class="brand-info">
@@ -363,7 +382,8 @@
             
             <div class="brand-content">
                 <div class="brand-image">
-                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Alpha Industries">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Alpha_Industries_Logo.svg/800px-Alpha_Industries_Logo.svg.png" alt="Alpha Industries Logo" style="max-width: 80%;">
+                    <div class="image-caption">Логотип Alpha Industries</div>
                 </div>
                 
                 <div class="brand-info">
@@ -394,7 +414,8 @@
             
             <div class="brand-content">
                 <div class="brand-image">
-                    <img src="https://images.unsplash.com/photo-1542280756-74b2f55e73ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Dr. Martens">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Dr._Martens_logo.svg/800px-Dr._Martens_logo.svg.png" alt="Dr. Martens Logo" style="max-width: 80%;">
+                    <div class="image-caption">Узнаваемый логотип Dr. Martens</div>
                 </div>
                 
                 <div class="brand-info">
