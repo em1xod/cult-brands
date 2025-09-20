@@ -388,7 +388,7 @@
             line-height: 1.4;
         }
         
-        /* Запасные изображения через base64 */
+        /* Запасные изображения */
         .fallback-image {
             width: 200px;
             height: 200px;
@@ -541,7 +541,7 @@
                 document.querySelectorAll('img').forEach(img => {
                     if (!img.complete || img.naturalHeight === 0) {
                         img.style.display = 'none';
-                        const fallback = document.getElementById(img.id + '-fallback');
+                        const fallback = document.getElementById(img.alt.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '') + '-fallback');
                         if (fallback) fallback.style.display = 'flex';
                     }
                 });
